@@ -3,34 +3,36 @@ package logic;
 import java.util.Scanner;
 
 public class Conditions {
-    public int numberInRange;
+    private static final int MIN_NUM = 100;
+    private static final int MAX_NUM = 200;
 
     Scanner reader = new Scanner(System.in);
 
-    public int outOfRange(int number) {
-
-        while (number < 100 || number > 200) {
-            if (number > 200) {
-                System.out.println("Podana liczba jest za duża. Podaj liczbę:");
-                number = reader.nextInt();
-            }
-            if (number < 100) {
-                System.out.println("Podana liczba jest za mała. Podaj liczbę:");
-                number = reader.nextInt();
-            }
-        }
-        return numberInRange = number;
+    public void checkNumber() {
+        int number;
+        do {
+            System.out.println("Podaj liczbę:");
+            number = reader.nextInt();
+        } while (!isCorrect(number));
+        System.out.println("Podana liczba jest ok.");
     }
 
-    public void checkDivisibility(int number) {
+    private boolean isCorrect(int number) {
 
-        while (number >= 100 && number <= 200 && (number % 3 != 0)) {
-
-            System.out.println("Podana liczba nie jest podzielna przez 3. Podaj liczbę:");
-            number = reader.nextInt();
-            outOfRange(number);
-          //  number = numberInRange;
+        if (number > MAX_NUM) {
+            System.out.println("Podana liczba jest za duża.");
+            return false;
         }
-        System.out.println("Twoja liczba jest ok");
+
+        if (number < MIN_NUM) {
+            System.out.println("Podana liczba jest za mała.");
+            return false;
+        }
+
+        if (number % 3 != 0) {
+            System.out.println("Podana liczba nie jest podzielna przez 3.");
+            return false;
+        }
+        return true;
     }
 }
